@@ -1,4 +1,6 @@
-.form {
+import styled from 'styled-components';
+
+export const SearchForm = styled.form`
   margin: 0 auto;
   padding: 6px;
   margin-bottom: 15px;
@@ -10,30 +12,30 @@
 
   border: 2px solid #6faa9a;
   border-radius: 5px;
-}
+`;
 
-.label {
+export const SearchLabel = styled.label`
   display: contents;
-}
 
-.label:hover {
-  color: rgb(28, 76, 82);
-  font-weight: 500;
-}
+  :hover {
+    color: rgb(28, 76, 82);
+    font-weight: 500;
+  }
+`;
 
-.input {
+export const SearchInput = styled.input`
   width: 80%;
   margin-bottom: 10px;
   outline: none;
   border-radius: 3px;
   border: 1.5px solid rgba(50, 49, 49, 0.442);
-}
 
-.input:focus {
-  border-color: teal;
-}
+  :focus {
+    border-color: teal;
+  }
+`;
 
-.btn {
+export const SearchBtn = styled.button`
   width: 120px;
   height: 30px;
 
@@ -50,8 +52,8 @@
   border-radius: 4px;
 
   cursor: pointer;
-}
 
-.btn:hover {
-  background-color: rgb(109, 206, 206);
-}
+  :hover {
+    background-color: rgb(109, 206, 206);
+  }
+`;

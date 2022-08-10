@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import s from './ContactItem.module.css';
+import { Text, Button } from './ContactItem.styled';
 
 export function ContactItem({ name, number, onClick }) {
   return (
     <>
-      <p className={s.text}>
+      <Text>
         {name}: {number}{' '}
-      </p>
-      <button className={s.btn} type="button" onClick={onClick}>
+      </Text>
+      <Button type="button" onClick={onClick}>
         Delete
-      </button>
+      </Button>
     </>
   );
 }

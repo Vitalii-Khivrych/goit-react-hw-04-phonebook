@@ -1,12 +1,10 @@
-.text {
+import styled from 'styled-components';
+
+export const Text = styled.p`
   font-size: 18px;
-}
+`;
 
-/* .text:not(:last-child) {
-  margin-bottom: 7px;
-} */
-
-.btn {
+export const Button = styled.button`
   width: 44px;
   height: 20px;
 
@@ -23,8 +21,8 @@
   border-radius: 4px;
 
   cursor: pointer;
-}
 
-.btn:hover {
-  background-color: rgb(109, 206, 206);
-}
+  :hover {
+    background-color: rgb(109, 206, 206);
+  }
+`;

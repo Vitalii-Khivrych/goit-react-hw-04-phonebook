@@ -1,73 +1,123 @@
-import { Component } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
-import s from './ContactForm.module.css';
+import {
+  SearchForm,
+  SearchLabel,
+  SearchInput,
+  SearchBtn,
+} from './ContactForm.styled';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
+export function ContactForm({ onSubmit }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
-  handleChange = evt => {
-    const { name, value } = evt.target;
-
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = evt => {
+  const handleSubmit = evt => {
     evt.preventDefault();
 
-    this.props.onSubmit(this.state);
+    onSubmit({ name, number });
 
-    this.reset();
+    reset();
   };
 
-  reset = () => {
-    this.setState({
-      name: '',
-      number: '',
-    });
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
-  render() {
-    const { name, number } = this.state;
+  return (
+    <SearchForm onSubmit={handleSubmit}>
+      <SearchLabel>
+        Name
+        <SearchInput
+          type="text"
+          name="name"
+          pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+          title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+          required
+          value={name}
+          onChange={evt => setName(evt.target.value)}
+        />
+      </SearchLabel>
+      <SearchLabel>
+        Number
+        <SearchInput
+          type="tel"
+          name="number"
+          pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+          title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+          required
+          value={number}
+          onChange={evt => setNumber(evt.target.value)}
+        />
+      </SearchLabel>
 
-    return (
-      <form className={s.form} onSubmit={this.handleSubmit}>
-        <label className={s.label}>
-          Name
-          <input
-            className={s.input}
-            type="text"
-            name="name"
-            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-            title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
-            required
-            value={name}
-            onChange={this.handleChange}
-          />
-        </label>
-        <label className={s.label}>
-          Number
-          <input
-            className={s.input}
-            type="tel"
-            name="number"
-            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-            title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
-            required
-            value={number}
-            onChange={this.handleChange}
-          />
-        </label>
-
-        <button className={s.btn} type="submit">
-          Add contact
-        </button>
-      </form>
-    );
-  }
+      <SearchBtn type="submit">Add contact</SearchBtn>
+    </SearchForm>
+  );
 }
+
+// export class OldContactForm extends Component {
+//   state = {
+//     name: '',
+//     number: '',
+//   };
+
+//   handleChange = evt => {
+//     const { name, value } = evt.target;
+
+//     this.setState({ [name]: value });
+//   };
+
+//   handleSubmit = evt => {
+//     evt.preventDefault();
+
+//     this.props.onSubmit(this.state);
+
+//     this.reset();
+//   };
+
+//   reset = () => {
+//     this.setState({
+//       name: '',
+//       number: '',
+//     });
+//   };
+
+//   render() {
+//     const { name, number } = this.state;
+
+//     return (
+//       <SearchForm onSubmit={this.handleSubmit}>
+//         <SearchLabel>
+//           Name
+//           <SearchInput
+//             type="text"
+//             name="name"
+//             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+//             title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+//             required
+//             value={name}
+//             onChange={this.handleChange}
+//           />
+//         </SearchLabel>
+//         <SearchLabel>
+//           Number
+//           <SearchInput
+//             type="tel"
+//             name="number"
+//             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+//             title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+//             required
+//             value={number}
+//             onChange={this.handleChange}
+//           />
+//         </SearchLabel>
+
+//         <SearchBtn type="submit">Add contact</SearchBtn>
+//       </SearchForm>
+//     );
+//   }
+// }
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
