@@ -1,25 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
 import { ContactList } from './ContactList/ContactList';
+import { useLocalStorage } from 'hooks/useLocalStorage';
 import initialContacts from './data/contacts.json';
 
 const LOCAL_STORAGE_KEY = 'contacts';
 
 export function App() {
-  const parseContactsLocalStorage = JSON.parse(
-    localStorage.getItem(LOCAL_STORAGE_KEY)
-  );
-
-  const [contacts, setContacts] = useState(
-    () => parseContactsLocalStorage ?? [...initialContacts]
+  const [contacts, setContacts] = useLocalStorage(
+    LOCAL_STORAGE_KEY,
+    initialContacts
   );
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    window.localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(contacts));
-  }, [contacts]);
 
   const addContact = ({ name, number }) => {
     const isFindCopyContact = contacts.find(
